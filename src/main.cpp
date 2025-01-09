@@ -8,7 +8,7 @@
 #define ACCESS_POINT 0 // Set 1 for station mode, 0 for access point mode
 const char *ssid = "your_own_wiki";
 const char *password = "your_own_password";
-const char *ssid_access_point = "robot1";
+const char *ssid_access_point = "robot2";
 
 // Static IP configuration for the Access Point
 IPAddress local_IP(192, 168, 4, 1); // The static IP address of the Access Point
