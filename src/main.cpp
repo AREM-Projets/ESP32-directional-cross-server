@@ -5,7 +5,7 @@
 
 /*---------------------------------------------------------------------------------------------------*/
 // Wi-Fi credentials and mode selection
-#define ACCESS_POINT 1 // Set 1 for station mode, 0 for access point mode
+#define ACCESS_POINT 0 // Set 1 for station mode, 0 for access point mode
 const char *ssid = "your_own_wiki";
 const char *password = "your_own_password";
 const char *ssid_access_point = "robot1";
