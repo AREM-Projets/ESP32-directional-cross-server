@@ -5,10 +5,15 @@
 
 /*---------------------------------------------------------------------------------------------------*/
 // Wi-Fi credentials and mode selection
-#define ACCESS_POINT 0 // Set 1 for station mode, 0 for access point mode
+#define ACCESS_POINT 1 // Set 1 for station mode, 0 for access point mode
 const char *ssid = "your_own_wiki";
 const char *password = "your_own_password";
 const char *ssid_access_point = "robot1";
+
+// Static IP configuration for the Access Point
+IPAddress local_IP(192, 168, 4, 1); // The static IP address of the Access Point
+IPAddress gateway(192, 168, 4, 1);  // The gateway IP is usually the same as the AP's IP
+IPAddress subnet(255, 255, 255, 0); // Subnet mask
 
 // Define RX and TX pins for UART 2
 #define RXD2 16
@@ -86,6 +91,11 @@ const char webpage[] PROGMEM = R"rawliteral(
 
 // Function to handle Wi-Fi connection
 void setupWiFi() {
+    // Set the static IP for the Access Point
+    if (!WiFi.softAPConfig(local_IP, gateway, subnet)) {
+        Serial.println("Failed to configure Access Point with static IP.");
+    }
+
     if (ACCESS_POINT) {
         Serial.println("Connecting to Wi-Fi as Station...");
         WiFi.begin(ssid, password);
@@ -157,7 +167,7 @@ void handleClient(WiFiClient &client) {
 void setup() {
     Serial.begin(115200);
     Serial2.begin(115200, SERIAL_8N1, RXD2, TXD2);
-    delay(2000);
+    delay(5000);
 
     setupWiFi();
     server.begin();
